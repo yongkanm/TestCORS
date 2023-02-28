@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Electron CORS Test</title>
+</head>
+
+<body>
+    <h1>Hello World!</h1>
+    <p>
+        We are using Node.js <span id="node-version"></span>,
+        Chromium <span id="chrome-version"></span>,
+        and Electron <span id="electron-version"></span>.
+    </p>
+    <input type="text" id="url" size="20">
+    <input type="button" id="request" value="Make a GET Request">
+    <input type="hidden" id="requestPrefix" value="">
+</body>
+
+<script>
+    document.getElementById("request").onclick = () => {
+        let url = document.getElementById("url").value;
+        let request = new XMLHttpRequest();
+        let requestPrefix = document.getElementById("requestPrefix").value;
+        request.open("GET", (requestPrefix ?? '') + url);
+        request.setRequestHeader("Authorization", "Bearer test-toen");
+        let transferComplete = (evt) => {
+            console.log(evt);
+        };
+        request.addEventListener("load", transferComplete);
+        request.send();
+    };
+</script>
+
+</html>
